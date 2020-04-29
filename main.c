@@ -3,8 +3,8 @@
 #include <stdlib.h>
 
 #define n 4096
-#define planted_clique_size 62
-#define runs 25
+int planted_clique_size;
+int runs;
 
 int total_edges;
 int total_vertices;
@@ -38,6 +38,34 @@ void print_graph(vertex **graph){
       printf("\n");
   }
 }
+
+/*
+Assign Edges with probability 1/2
+*/
+void fill_adjacency_matrix(vertex **graph){
+    //initial the degree of all vertices to 0
+    for(int i=0; i<n; i++){
+      graph[i]->degree = 0;
+      graph[i]->in_graph = 1;
+    }
+  
+    for(int i=0; i<n; i++){
+    
+      for(int j=i+1; j<n; j++){
+
+	int r = rand()%2;
+
+	if(r == 1){
+	  total_edges += 2;
+	  graph[i]->degree++;
+	  graph[j]->degree++;
+	}
+	graph[i]->neighbor[j] = r;
+	graph[j]->neighbor[i] = r;
+
+      }
+    }
+}  
 
 void plant_clique(vertex **graph, int k){
 
@@ -81,11 +109,32 @@ void plant_clique(vertex **graph, int k){
   }
 }
 
+int string_to_int(char *str){
+
+  int value = 0;
+  int i=0;
+  while(str[i] != '\0'){
+    
+    value = value*10;
+    value += (str[i]-'0')%10;
+    i++;
+  }
+  return value;
+}
   
 
-int main(){
+int main(int argc, char **argv){
 
-  srand(0);
+  if(argc < 3){
+    printf("Usage: First Argument is number of iterations \n");
+    printf("Second Argument is the size of the Planted Clique\n");
+    exit(0);
+  }
+
+  runs = string_to_int(argv[1]);
+  planted_clique_size = string_to_int(argv[2]);
+
+  srand(time(NULL));
 
  
   
@@ -97,35 +146,16 @@ int main(){
 
   int removed_list[n];
   int removed_list_index;
+    
+  int success = 0;
 
   for(int q=0; q<runs; q++){
 
     total_edges = 0;
     total_vertices = n;
     removed_list_index = 0;
-    
-    //initial the degree of all vertices to 0
-    for(int i=0; i<n; i++){
-      graph[i]->degree = 0;
-      graph[i]->in_graph = 1;
-    }
-  
-    for(int i=0; i<n; i++){
-    
-      for(int j=i+1; j<n; j++){
 
-	int r = rand()%2;
-
-	if(r == 1){
-	  total_edges += 2;
-	  graph[i]->degree++;
-	  graph[j]->degree++;
-	}
-	graph[i]->neighbor[j] = r;
-	graph[j]->neighbor[i] = r;
-
-      }
-    }
+    fill_adjacency_matrix(graph);
   
     //  print_graph(graph);
 
@@ -141,7 +171,6 @@ int main(){
 
     // printf("Get the vertex with minimum edges..\n");
 
-  
 
     int min = n;
     int min_vertex = 0;
@@ -225,7 +254,11 @@ int main(){
 	graph[v]->in_graph = 1;
       }
     }
-    printf("Iteration %d has a clique of size %d\n" , q, total_vertices);
+    // printf("Iteration %d has a clique of size %d\n" , q, total_vertices);
+    if(total_vertices >= planted_clique_size){
+      success++;
+    }
+    
   }
 
   for(int i=0; i<n; i++){
@@ -233,5 +266,5 @@ int main(){
   }
   free(graph);
   
-  return 0;
+  return success;
 }
