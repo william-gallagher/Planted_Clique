@@ -6,7 +6,7 @@ ldr.c implements the lowest degree removal algorithm found in this [paper](Feige
 
 In general terms this 
 
-###Usage
+### Usage
 
 In `test.sh` set the following variables for the number of trials to run, the starting clique size and the final clique size.
 
@@ -14,10 +14,10 @@ In `test.sh` set the following variables for the number of trials to run, the st
 TRIALS=1000
 START_CLIQUE_SIZE=28
 END_CLIQUE_SIZE=128
-```C
+```
 
 Then run:
 
-```console
+```Console
 .\test.sh
-```console
+```
