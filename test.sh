@@ -6,7 +6,7 @@ K=$START_CLIQUE_SIZE
 
 while [ $K -le $END_CLIQUE_SIZE ];
 do
-    ./main $TRIALS $K
+    ./ldr $TRIALS $K
     K=$((K+1))
 done
 

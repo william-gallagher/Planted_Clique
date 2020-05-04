@@ -6,8 +6,8 @@ else
 	OPTS=-Ofast
 endif
 
-main: main.c
-	gcc -o main main.c $(OPTS)
+main: ldr.c
+	gcc -o ldr ldr.c $(OPTS)
 
 clean:
-	rm main
+	rm ldr
