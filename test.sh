@@ -1,16 +1,13 @@
+TRIALS=10
+START_CLIQUE_SIZE=28
+END_CLIQUE_SIZE=128
 
-success=0
-trials=20
-ret=0
+K=$START_CLIQUE_SIZE
 
-counter=28
-while [ $counter -lt 129 ];
+while [ $K -le $END_CLIQUE_SIZE ];
 do
-
-    ./main $trials $counter
-    printf "For k = %d we see %d success in %d trials\n"  $counter  $? $trials 
-
-    counter=$((counter+1))
+    ./main $TRIALS $K
+    K=$((K+1))
 done
 
 
