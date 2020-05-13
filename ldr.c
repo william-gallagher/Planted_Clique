@@ -98,7 +98,8 @@ void plant_clique(vertex **graph, int k){
   
   int v;
 
-  //Use the first k most element of shuffled array to determine the vertices to include in the planted clique
+  //Use the first k most element of shuffled array to determine the
+  //vertices to include in the planted clique
   for(int i=0; i<k; i++){
     v = array[i];
 
