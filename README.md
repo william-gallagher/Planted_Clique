@@ -9,7 +9,7 @@ In general terms this algorithm works as follows:
 2. Chose k (for this assignment k ranges from 28 to 128) vertices and make a clique of them.
 3. Remove vertices from the graph until the vertices that remain form a clique. Update the adjacency lists of each vertex as the lowest degree vertex is removed.
 4. Attempt to add the removed vertices to the clique in the reverse order that they were removed. Only add if their addition preserves the clique property. 
-5. Return the graph. It must be a clique.Compare to the planted clique. Return success if it is greater than or equal to the planted clique. Otherwise return failure
+5. Return the graph. It must be a clique. Compare to the planted clique. Return success if it is greater than or equal to the planted clique. Otherwise return failure
 
 
 ### Usage
